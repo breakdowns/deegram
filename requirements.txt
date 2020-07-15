@@ -2,4 +2,4 @@ telethon~=1.15.0
 cryptg~=0.2
 python-dotenv~=0.14.0
 aiohttp[speedups]~=3.6.2
-deethon~=0.4.2
+deethon~=0.4.3
