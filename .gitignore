@@ -6,3 +6,4 @@ Songs/
 *.session-journal
 *.log
 *.env
+fly.toml
