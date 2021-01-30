@@ -5,9 +5,11 @@ import time
 
 import deethon
 from dotenv import load_dotenv
-from telethon import TelegramClient, events, functions, types
+from telethon import TelegramClient, functions, types
+from telethon.events import NewMessage
 
-formatter = logging.Formatter('%(levelname)s %(asctime)s - %(name)s - %(message)s')
+formatter = logging.Formatter(
+    '%(levelname)s %(asctime)s - %(name)s - %(message)s')
 
 fh = logging.FileHandler(f'{__name__}.log', 'w')
 fh.setFormatter(formatter)
@@ -44,7 +46,8 @@ except KeyError:
 deezer = deethon.Session(DEEZER_TOKEN)
 logger.debug(f'Using deethon v{deethon.__version__}')
 
-bot = TelegramClient(__name__, API_ID, API_HASH, base_logger=telethon_logger).start(bot_token=BOT_TOKEN)
+bot = TelegramClient(__name__, API_ID, API_HASH,
+                     base_logger=telethon_logger).start(bot_token=BOT_TOKEN)
 logger.info("Bot started")
 
 # Saving user preferences locally
@@ -72,9 +75,10 @@ bot.loop.run_until_complete(
     ))
 )
 
-@bot.on(events.NewMessage())
-async def init_user(event):
-    if event.from_id not in users.keys():
-        users[event.from_id] = {
+
+@bot.on(NewMessage())
+async def init_user(event: NewMessage.Event):
+    if event.chat_id not in users.keys():
+        users[event.chat_id] = {
             "quality": "FLAC"
         }

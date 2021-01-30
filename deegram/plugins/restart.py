@@ -3,7 +3,7 @@ import pickle
 from os import execl, path, remove
 from sys import executable
 
-from telethon import events
+from telethon.events import NewMessage
 
 from .. import bot, OWNER_ID
 
@@ -12,11 +12,12 @@ logger = logging.getLogger(__name__)
 if path.exists('restart.pickle'):
     with open('restart.pickle', 'rb') as status:
         chat, msg_id = pickle.load(status)
-    bot.loop.run_until_complete(bot.edit_message(chat, msg_id, "Restarted Successfully!"))
+    bot.loop.run_until_complete(bot.edit_message(
+        chat, msg_id, "Restarted Successfully!"))
     remove('restart.pickle')
 
 
-@bot.on(events.NewMessage(pattern='/restart', from_users=OWNER_ID))
+@bot.on(NewMessage(pattern='/restart', from_users=OWNER_ID))
 async def restart(event):
     restart_message = await event.reply("Restarting, Please wait!")
     with open('restart.pickle', 'wb') as status:

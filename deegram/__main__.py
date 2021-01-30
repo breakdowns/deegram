@@ -1,16 +1,8 @@
-from __future__ import annotations
-
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from typing import Union
-    from telethon.tl.patched import Message
-    from telethon.events import NewMessage
-
 import shutil
 import time
 
 from telethon import Button, events
+from telethon.events import NewMessage, StopPropagation
 
 from . import bot, botStartTime, logger, plugins
 from .utils import translate, fetch
@@ -25,42 +17,42 @@ inline_search_buttons = [
 ]
 
 
-@bot.on(events.NewMessage(pattern='/start'))
-async def start(event: Union[NewMessage.Event, Message]):
+@bot.on(NewMessage(pattern='/start'))
+async def start(event: NewMessage.Event):
     await event.reply(translate.WELCOME_MSG, buttons=inline_search_buttons)
-    raise events.StopPropagation
+    raise StopPropagation
 
 
-@bot.on(events.NewMessage(pattern='/help'))
-async def get_help(event: Union[NewMessage.Event, Message]):
+@bot.on(NewMessage(pattern='/help'))
+async def get_help(event: NewMessage.Event):
     await event.reply(translate.HELP_MSG)
 
 
-@bot.on(events.NewMessage(pattern='/info'))
-async def info(event: Union[NewMessage.Event, Message]):
+@bot.on(NewMessage(pattern='/info'))
+async def info(event: NewMessage.Event):
     await event.reply(translate.INFO_MSG)
-    raise events.StopPropagation
+    raise StopPropagation
 
 
-@bot.on(events.NewMessage(pattern='/log'))
-async def log(event: Union[NewMessage.Event, Message]):
+@bot.on(NewMessage(pattern='/log'))
+async def log(event: NewMessage.Event):
     await event.reply(file=f'{__name__}.log')
-    raise events.StopPropagation
+    raise StopPropagation
 
 
-@bot.on(events.NewMessage(pattern='/stats'))
-async def stats(event: Union[NewMessage.Event, Message]):
+@bot.on(NewMessage(pattern='/stats'))
+async def stats(event: NewMessage.Event):
     current_time = get_readable_time((time.time() - botStartTime))
     total, used, free = shutil.disk_usage('.')
     total = get_readable_file_size(total)
     used = get_readable_file_size(used)
     free = get_readable_file_size(free)
     await event.reply(translate.STATS_MSG.format(current_time, total, used, free))
-    raise events.StopPropagation
+    raise StopPropagation
 
 
 @bot.on(events.NewMessage())
-async def search(event: Union[NewMessage.Event, Message]):
+async def search(event: NewMessage.Event):
     if event.text.startswith('/'):
         search_query = ''
     else:

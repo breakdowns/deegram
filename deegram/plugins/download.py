@@ -1,9 +1,5 @@
-from __future__ import annotations
-
-from typing import TYPE_CHECKING
-
 import deethon
-from telethon import events
+from telethon.events import NewMessage, StopPropagation
 from telethon.tl.types import DocumentAttributeAudio
 
 from .. import bot, users, deezer
@@ -12,19 +8,14 @@ from ..helper.upload_status import UploadStatus
 from ..utils import translate
 from ..utils.fast_download import upload_file
 
-if TYPE_CHECKING:
-    from typing import Union
-    from telethon.tl.patched import Message
-    from telethon.events import NewMessage
 
-
-@bot.on(events.NewMessage(pattern=r"https?://(?:www\.)?deezer\.com/(?:\w+/)?track/(\d+)"))
-async def track_link(event: Union[NewMessage.Event, Message]):
+@bot.on(NewMessage(pattern=r"https?://(?:www\.)?deezer\.com/(?:\w+/)?track/(\d+)"))
+async def track_link(event: NewMessage.Event):
     try:
         track = deethon.Track(event.pattern_match.group(1))
     except deethon.errors.DeezerApiError:
         await event.reply("Track not found.")
-        raise events.StopPropagation
+        raise StopPropagation
     await event.respond(
         translate.TRACK_MSG.format(
             track.title,
@@ -37,19 +28,19 @@ async def track_link(event: Union[NewMessage.Event, Message]):
     download_status = DownloadStatus(event)
     await download_status.start()
     file = await bot.loop.run_in_executor(None, deezer.download_track, track, quality, download_status.progress)
-    await download_status.finished()
+    download_status.finished()
     file_ext = ".mp3" if quality.startswith("MP3") else ".flac"
     file_name = track.artist + " - " + track.title + file_ext
     upload_status = UploadStatus(event)
     await upload_status.start()
-    async with bot.action(event.chat_id, 'audio'):
+    async with bot.action(event.input_chat, 'audio'):
         uploaded_file = await upload_file(
             file_name=file_name,
             client=bot,
             file=open(file, 'rb'),
             progress_callback=upload_status.progress,
         )
-        await upload_status.finished()
+        upload_status.finished()
         await bot.send_file(
             event.chat_id,
             uploaded_file,
@@ -63,16 +54,16 @@ async def track_link(event: Union[NewMessage.Event, Message]):
                 )
             ],
         )
-    raise events.StopPropagation
+    raise StopPropagation
 
 
-@bot.on(events.NewMessage(pattern=r"https?://(?:www\.)?deezer\.com/(?:\w+/)?album/(\d+)"))
-async def album_link(event: Union[NewMessage.Event, Message]):
+@bot.on(NewMessage(pattern=r"https?://(?:www\.)?deezer\.com/(?:\w+/)?album/(\d+)"))
+async def album_link(event: NewMessage.Event):
     try:
         album = deethon.Album(event.pattern_match.group(1))
     except deethon.errors.DeezerApiError:
         await event.respond("Not found")
-        raise events.StopPropagation
+        raise StopPropagation
 
     await event.respond(
         translate.ALBUM_MSG.format(
@@ -84,7 +75,7 @@ async def album_link(event: Union[NewMessage.Event, Message]):
         file=album.cover_xl,
     )
 
-    quality = users[event.from_id]["quality"]
+    quality = users[event.chat_id]["quality"]
     msg = await event.reply(translate.DOWNLOAD_MSG)
     tracks = deezer.download_album(album, quality, stream=True)
     await msg.delete()
@@ -100,7 +91,7 @@ async def album_link(event: Union[NewMessage.Event, Message]):
                 file=open(track, 'rb'),
                 progress_callback=upload_status.progress
             )
-            await upload_status.finished()
+            upload_status.finished()
             await bot.send_file(
                 event.chat_id,
                 r,
@@ -116,4 +107,4 @@ async def album_link(event: Union[NewMessage.Event, Message]):
             await msg.delete()
 
     await event.reply(translate.END_MSG)
-    raise events.StopPropagation
+    raise StopPropagation

@@ -9,7 +9,7 @@ import math
 import os
 import logging
 from collections import defaultdict
-from typing import (AsyncGenerator, Awaitable, BinaryIO, DefaultDict, List,
+from typing import (AsyncGenerator, Awaitable, BinaryIO, Callable, DefaultDict, List,
                     Optional, Tuple, Union)
 
 from telethon import TelegramClient, helpers, utils
@@ -77,7 +77,8 @@ class UploadSender:
         self.sender = sender
         self.part_count = part_count
         if big:
-            self.request = SaveBigFilePartRequest(file_id, index, part_count, b"")
+            self.request = SaveBigFilePartRequest(
+                file_id, index, part_count, b"")
         else:
             self.request = SaveFilePartRequest(file_id, index, b"")
         self.stride = stride
@@ -190,9 +191,11 @@ class ParallelTransferrer:
 
     async def init_upload(self, file_id: int, file_size: int, part_size_kb: Optional[float] = None,
                           connection_count: Optional[int] = None) -> Tuple[int, int, bool]:
-        connection_count = connection_count or self._get_connection_count(file_size)
+        connection_count = connection_count or self._get_connection_count(
+            file_size)
         logger.debug(f"init_upload count is {connection_count}")
-        part_size = (part_size_kb or utils.get_appropriated_part_size(file_size)) * 1024
+        part_size = (
+            part_size_kb or utils.get_appropriated_part_size(file_size)) * 1024
         part_count = (file_size + part_size - 1) // part_size
         is_large = file_size > 10 * 1024 * 1024
         await self._init_upload(connection_count, file_id, part_count, is_large)
@@ -208,9 +211,11 @@ class ParallelTransferrer:
     async def download(self, file: TypeLocation, file_size: int,
                        part_size_kb: Optional[float] = None,
                        connection_count: Optional[int] = None) -> AsyncGenerator[bytes, None]:
-        connection_count = connection_count or self._get_connection_count(file_size)
+        connection_count = connection_count or self._get_connection_count(
+            file_size)
 
-        part_size = (part_size_kb or utils.get_appropriated_part_size(file_size)) * 1024
+        part_size = (
+            part_size_kb or utils.get_appropriated_part_size(file_size)) * 1024
         part_count = math.ceil(file_size / part_size)
         logger.debug("Starting parallel download: "
                      f"{connection_count} {part_size} {part_count} {file!s}")
@@ -233,12 +238,13 @@ class ParallelTransferrer:
         await self._cleanup()
 
 
-parallel_transfer_locks: DefaultDict[int, asyncio.Lock] = defaultdict(lambda: asyncio.Lock())
+parallel_transfer_locks: DefaultDict[int, asyncio.Lock] = defaultdict(
+    lambda: asyncio.Lock())
 
 
 async def _internal_transfer_to_telegram(client: TelegramClient,
                                          response: BinaryIO,
-                                         progress_callback: callable,
+                                         progress_callback: Callable[[int, int], None],
                                          file_name: str
                                          ) -> Tuple[TypeInputFile, int]:
     file_id = helpers.generate_random_long()
@@ -279,7 +285,7 @@ async def _internal_transfer_to_telegram(client: TelegramClient,
 async def download_file(client: TelegramClient,
                         location: TypeLocation,
                         out: BinaryIO,
-                        progress_callback: callable = None
+                        progress_callback: Callable[[int, int], None] = None
                         ) -> BinaryIO:
     size = location.size
     dc_id, location = utils.get_input_location(location)
@@ -299,6 +305,6 @@ async def download_file(client: TelegramClient,
 async def upload_file(client: TelegramClient,
                       file: BinaryIO,
                       file_name: str,
-                      progress_callback: callable = None) -> TypeInputFile:
+                      progress_callback: Callable[[int, int], None] = None) -> TypeInputFile:
     res = (await _internal_transfer_to_telegram(client, file, progress_callback, file_name))[0]
     return res

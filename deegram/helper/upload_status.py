@@ -1,9 +1,14 @@
+from asyncio.tasks import Task
 import logging
 import time
+import asyncio
+from typing import Optional
 
 from telethon.errors import MessageNotModifiedError
 
 from ..utils.bot_utils import get_readable_file_size
+from .. import bot
+
 
 logger = logging.getLogger(__name__)
 
@@ -14,38 +19,42 @@ class UploadStatus:
         self._total = 0
         self._event = event
         self._message = None
-        self._start_time = 0.0
-        self._update_time = 0.0
         self._track_count = track_count
         self._total_tracks = total_tracks
+        self.task: Optional[Task] = None
 
-    @property
-    def upload_speed(self) -> float:
+    def speed(self) -> float:
         return self._current / (time.time() - self._start_time)
 
     async def start(self) -> None:
         self._start_time = time.time()
         self._message = await self._event.reply("Uploading...")
+        self.task = bot.loop.create_task(self._on_upload_progress())
 
-    async def progress(self, current: int, total: int) -> None:
+    async def _on_upload_progress(self) -> None:
+        try:
+            while True:
+                if self._total:
+                    msg = ""
+                    if self._track_count:
+                        msg += f" 💿 Track {self._track_count} of {self._total_tracks}\n"
+                    msg += (
+                        f"🔼 Uploading... {(self._current / self._total):.1%}\n"
+                        f"⚡ Speed: {get_readable_file_size(self.speed())}/s"
+                    )
+                    try:
+                        await self._message.edit(msg)
+                    except MessageNotModifiedError:
+                        logger.debug("Message not modified")
+                    except ZeroDivisionError:
+                        logger.debug("Divided zero")
+                await asyncio.sleep(0.5)
+        except asyncio.CancelledError:
+            await self._message.delete()
+
+    def progress(self, current: int, total: int) -> None:
         self._current = current
         self._total = total
-        if (time.time() - self._update_time) > 1:
-            msg = ""
-            if self._track_count:
-                msg += f" 💿 Track {self._track_count} of {self._total_tracks}\n"
-            msg += (
-                f"🔼 Uploading... {(self._current / self._total):.1%}\n"
-                f"⚡ Speed: {get_readable_file_size(self.upload_speed)}/s"
-            )
-            try:
-                await self._message.edit(msg)
-            except MessageNotModifiedError:
-                logger.debug("Message not modified")
-            except ZeroDivisionError:
-                logger.debug("Divided zero")
-            else:
-                self._update_time = time.time()
 
-    async def finished(self) -> None:
-        await self._message.delete()
+    def finished(self) -> None:
+        self.task.cancel()

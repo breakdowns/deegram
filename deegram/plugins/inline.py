@@ -1,7 +1,7 @@
 import logging
 
-from telethon import events
 from telethon.tl.types import InputWebDocument
+from telethon.events import InlineQuery
 
 from .. import bot
 from ..utils.fetch import fetch_json
@@ -9,8 +9,8 @@ from ..utils.fetch import fetch_json
 logger = logging.getLogger(__name__)
 
 
-@bot.on(events.InlineQuery)
-async def inline(event):
+@bot.on(InlineQuery())
+async def inline(event: InlineQuery.Event):
     builder = event.builder
     s = []
 

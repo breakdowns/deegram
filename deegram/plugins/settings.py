@@ -1,6 +1,8 @@
 from asyncio import sleep
+from typing import Union
 
-from telethon import Button, events
+from telethon import Button
+from telethon.events import NewMessage, CallbackQuery, StopPropagation
 
 from .. import bot, users
 
@@ -13,8 +15,8 @@ search_buttons = [
 ]
 
 
-@bot.on(events.NewMessage(pattern="/settings"))
-async def settings(event):
+@bot.on(NewMessage(pattern="/settings"))
+async def settings(event: Union[NewMessage.Event, CallbackQuery.Event]):
     if hasattr(event, "query"):
         answer = event.edit
     else:
@@ -23,11 +25,11 @@ async def settings(event):
         "Settings:",
         buttons=[[Button.inline("Quality 🎧", data="q")], [Button.inline("❌")]],
     )
-    raise events.StopPropagation
+    raise StopPropagation
 
 
-@bot.on(events.CallbackQuery(pattern="q"))
-async def settings_quality(event):
+@bot.on(CallbackQuery(pattern="q"))
+async def settings_quality(event: CallbackQuery.Event):
     q = users[event.query.user_id]["quality"]
     a = "Lossless"
     b = "High"
@@ -48,14 +50,15 @@ async def settings_quality(event):
         "Select song quality: ",
         buttons=[
             [Button.inline(a, data="FLAC"), Button.inline(b, data="MP3_320")],
-            [Button.inline(c, data="MP3_256"), Button.inline(d, data="MP3_128")],
+            [Button.inline(c, data="MP3_256"),
+             Button.inline(d, data="MP3_128")],
             [Button.inline("◀️"), Button.inline("❌")],
         ],
     )
 
 
-@bot.on(events.CallbackQuery(pattern=r"(FLAC|MP3_\d{3})"))
-async def callback(event):
+@bot.on(CallbackQuery(pattern=r"(FLAC|MP3_\d{3})"))
+async def callback(event: CallbackQuery.Event):
     q = event.data.decode("utf-8")
     if users[event.query.user_id]["quality"] != q:
         users[event.query.user_id]["quality"] = q
@@ -65,13 +68,13 @@ async def callback(event):
         await event.answer("Already selected!")
 
 
-@bot.on(events.CallbackQuery(pattern="❌"))
-async def cancel(event):
+@bot.on(CallbackQuery(pattern="❌"))
+async def cancel(event: CallbackQuery.Event):
     await event.edit("Canceled.")
     await sleep(1.5)
     await event.delete()
 
 
-@bot.on(events.CallbackQuery(pattern="◀️"))
-async def back_to_settings(event):
+@bot.on(CallbackQuery(pattern="◀️"))
+async def back_to_settings(event: CallbackQuery.Event):
     await settings(event)
