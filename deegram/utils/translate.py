@@ -16,7 +16,7 @@ STATS_MSG = (
     "Free: {}"
 )
 HELP_MSG = (
-    "Search by album or tack or just send me a Deezer track or album link and I will download it for you :)\n\n"
+    "Search by album or track or just send me a Deezer track or album link and I will download it for you :)\n\n"
     "**List of all commands:**\n"
     "/start - Get the welcome message\n"
     "/help - Get this message\n"
