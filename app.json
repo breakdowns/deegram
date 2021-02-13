@@ -9,7 +9,7 @@
   "success_url": "https://github.com/breakdowns/deegram",
   "website": "https://github.com/breakdowns/deegram",
   "env": {
-    "APP_ID": {
+    "API_ID": {
       "description": "Get this value from https://my.telegram.org",
       "value": ""
     },
