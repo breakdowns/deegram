@@ -19,7 +19,7 @@
       "value": ""
     },
     "BOT_TOKEN": {
-      "description": "get this value from @BotFather",
+      "description": "Get this value from @BotFather",
       "value": ""
     },
     "DEEZER_TOKEN": {
