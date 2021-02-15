@@ -1,6 +1,7 @@
 {
   "name": "Deegram",
   "description": "A Telegram bot to download music from Deezer",
+  "logo": "https://telegra.ph/file/6507910fd06d18dfaba82.jpg",
   "keywords": [
     "telegram",
     "deezer"
@@ -23,7 +24,7 @@
     },
     "DEEZER_TOKEN": {
       "description": "Get your API token from Deezer",
-      "value": "fr3b9096827b27dfb08c8c033efd4f54"
+      "value": ""
     },
     "OWNER_ID": {
       "description": "Owner Telegram ID",
