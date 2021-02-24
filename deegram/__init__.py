@@ -56,7 +56,7 @@ logger.info("Bot started")
 users = {}
 
 loop = asyncio.get_event_loop()
-uvloop.install()
+#uvloop.install()
 loop.run_until_complete(
     bot(functions.bots.SetBotCommandsRequest(
         commands=[
