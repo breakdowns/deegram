@@ -36,7 +36,7 @@ async def info(event: NewMessage.Event):
 
 @bot.on(NewMessage(pattern='/log', from_users=OWNER_ID))
 async def log(event: NewMessage.Event):
-    await event.reply(file='deezfitz.log')
+    await event.reply(file='deegram.log')
     raise StopPropagation
 
 
