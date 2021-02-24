@@ -4,7 +4,7 @@ import time
 from telethon import Button, events
 from telethon.events import NewMessage, StopPropagation
 
-from . import bot, botStartTime, logger, plugins
+from . import bot, botStartTime, logger, plugins, OWNER_ID
 from .utils import translate, fetch
 from .utils.bot_utils import get_readable_file_size, get_readable_time
 
@@ -34,9 +34,9 @@ async def info(event: NewMessage.Event):
     raise StopPropagation
 
 
-@bot.on(NewMessage(pattern='/log'))
+@bot.on(NewMessage(pattern='/log', from_users=OWNER_ID))
 async def log(event: NewMessage.Event):
-    await event.reply(file=f'{__name__}.log')
+    await event.reply(file='deegram.log')
     raise StopPropagation
 
 
