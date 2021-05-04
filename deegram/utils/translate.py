@@ -10,13 +10,13 @@ INFO_MSG = (
     f"ℹ Version: {VERSION}"
 )
 STATS_MSG = (
-    "Bot Uptime: {}\n"
-    "Total disk space: {}\n"
-    "Used: {}"
-    "Free: {}\n\n"
-    "Cpu: {}\n"
-    "Ram: {}\n"
-    "Disk: {}"
+    "<b>Bot Uptime:</b> {}\n"
+    "<b>Total disk space:</b> {}\n"
+    "<b>Used:</b> {} "
+    "<b>Free:</b> {}\n\n"
+    "<b>CPU:</b> {}\n"
+    "<b>RAM:</b> {}\n"
+    "<b>DISK:</b> {}"
 )
 HELP_MSG = (
     "Search by album or track or just send me a Deezer track or album link and I will download it for you :)\n\n"
