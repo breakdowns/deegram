@@ -12,8 +12,8 @@ INFO_MSG = (
 STATS_MSG = (
     "Bot Uptime: {}\n"
     "Total disk space: {}\n"
-    "Used: {}\n"
-    "Free: {}\n"
+    "Used: {}"
+    "Free: {}\n\n"
     "Cpu: {}\n"
     "Ram: {}\n"
     "Disk: {}"
