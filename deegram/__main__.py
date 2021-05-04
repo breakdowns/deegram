@@ -47,10 +47,12 @@ async def stats(event: NewMessage.Event):
     total = get_readable_file_size(total)
     used = get_readable_file_size(used)
     free = get_readable_file_size(free)
+    sent = get_readable_file_size(psutil.net_io_counters().bytes_sent)
+    recv = get_readable_file_size(psutil.net_io_counters().bytes_recv)
     cpu = psutil.cpu_percent(interval=0.5)
     ram = psutil.virtual_memory().percent
     disk = psutil.disk_usage('/').percent
-    await event.reply(translate.STATS_MSG.format(current_time, total, used, free, cpu, ram, disk))
+    await event.reply(translate.STATS_MSG.format(current_time, total, used, free, sent, recv, cpu, ram, disk))
     raise StopPropagation
 
 
