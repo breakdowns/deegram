@@ -13,7 +13,9 @@ STATS_MSG = (
     "Bot Uptime: {}\n"
     "Total disk space: {}\n"
     "Used: {}\n"
-    "Free: {}"
+    "Free: {}\n"
+    "sent: {}\n"
+    "recv: {}"
 )
 HELP_MSG = (
     "Search by album or track or just send me a Deezer track or album link and I will download it for you :)\n\n"
