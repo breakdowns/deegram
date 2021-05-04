@@ -1,4 +1,4 @@
-import shutil
+import shutil, psutil
 import time
 
 from telethon import Button, events
