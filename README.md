@@ -4,4 +4,4 @@ Telegram bot to download music from Deezer powered by [deethon](https://github.c
 # deploy
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 # credits
-[aykxt](https://github.com/aykxt) for deethon
+- [aykxt](https://github.com/aykxt) for deethon
