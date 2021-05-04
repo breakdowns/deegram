@@ -6,4 +6,3 @@ aiodns~=2.0.0
 cchardet~=2.1.7
 deethon~=0.5.1
 uvloop~=0.15.2
-psutil
