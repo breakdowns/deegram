@@ -14,8 +14,9 @@ STATS_MSG = (
     "Total disk space: {}\n"
     "Used: {}\n"
     "Free: {}\n"
-    "sent: {}\n"
-    "recv: {}"
+    "Cpu: {}\n"
+    "Ram: {}\n"
+    "Disk: {}"
 )
 HELP_MSG = (
     "Search by album or track or just send me a Deezer track or album link and I will download it for you :)\n\n"
