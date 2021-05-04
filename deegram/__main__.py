@@ -50,7 +50,7 @@ async def stats(event: NewMessage.Event):
     cpu = psutil.cpu_percent(interval=0.5)
     ram = psutil.virtual_memory().percent
     disk = psutil.disk_usage('/').percent
-    await event.reply(translate.STATS_MSG.format(current_time, total, used, free, sent, recv))
+    await event.reply(translate.STATS_MSG.format(current_time, total, used, free, cpu, ram, disk))
     raise StopPropagation
 
 
