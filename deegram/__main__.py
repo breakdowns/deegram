@@ -1,4 +1,4 @@
-import shutil
+import shutil, psutil
 import time
 
 from telethon import Button, events
@@ -47,7 +47,9 @@ async def stats(event: NewMessage.Event):
     total = get_readable_file_size(total)
     used = get_readable_file_size(used)
     free = get_readable_file_size(free)
-    await event.reply(translate.STATS_MSG.format(current_time, total, used, free))
+    sent = get_readable_file_size(psutil.net_io_counters().bytes_sent)
+    recv = get_readable_file_size(psutil.net_io_counters().bytes_recv)
+    await event.reply(translate.STATS_MSG.format(current_time, total, used, free, sent, recv))
     raise StopPropagation
 
 
