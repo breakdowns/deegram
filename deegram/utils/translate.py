@@ -14,7 +14,7 @@ STATS_MSG = (
     "**Total disk space:** {}\n"
     "**Used:** {} "
     "**Free:** {}\n\n"
-    "📊Data Usage📊\n**Upload:*** {}\n"
+    "📊Data Usage📊\n**Upload:** {}\n"
     "**Download:** {}\n\n"
     "**CPU:** {}\n"
     "**RAM:** {}\n"
