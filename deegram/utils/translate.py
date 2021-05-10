@@ -1,4 +1,4 @@
-VERSION = "0.2.1"
+VERSION = "0.2.2"
 CREATOR = "@hafitzXD"
 BOT_NAME = "Deezfitz"
 WELCOME_MSG = (
@@ -10,13 +10,18 @@ INFO_MSG = (
     f"ℹ Version: {VERSION}"
 )
 STATS_MSG = (
-    "Bot Uptime: {}\n"
-    "Total disk space: {}\n"
-    "Used: {}\n"
-    "Free: {}"
+    "**Bot Uptime:** {}\n"
+    "**Total disk space:** {}\n"
+    "**Used:** {} "
+    "**Free:** {}\n\n"
+    "📊Data Usage📊\n**Upload:** {}\n"
+    "**Download:** {}\n\n"
+    "**CPU:** {}\n"
+    "**RAM:** {}\n"
+    "**DISK:** {}"
 )
 HELP_MSG = (
-    "Search by album or track or just send me a Deezer track or album link and I will download it for you :)\n\n"
+    "Search by album or track or just send me a Deezer track or album link and I will download it for you 🙂\n\n"
     "**List of all commands:**\n"
     "/start - Get the welcome message\n"
     "/help - Get this message\n"
