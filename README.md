@@ -3,6 +3,9 @@
 ![GitHub forks](https://img.shields.io/github/forks/breakdowns/deegram)
 ![GitHub issues](https://img.shields.io/github/issues/breakdowns/deegram)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/breakdowns/deegram)
+![GitHub contributors](https://img.shields.io/github/contributors/breakdowns/deegram)
+![GitHub repo size](https://img.shields.io/github/repo-size/breakdowns/deegram)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/breakdowns/deegram)
 # Deegram
 Telegram bot to download music from Deezer powered by [deethon](https://github.com/deethon)
 # Deploy
