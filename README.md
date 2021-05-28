@@ -7,7 +7,8 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/breakdowns/deegram)
 ![GitHub repo size](https://img.shields.io/github/repo-size/breakdowns/deegram)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/breakdowns/deegram)
-Telegram bot to download music from Deezer powered by [deethon](https://github.com/deethon)
+Telegram Bot to download music from Deezer powered by [deethon](https://github.com/deethon)
+
 # Deploy
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 # Credits
