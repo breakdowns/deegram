@@ -15,3 +15,4 @@
 
 # Credits
 - [aykxt](https://github.com/aykxt) for deethon
+- [Lonami](https://github.com/Lonami) for telethon
