@@ -1,4 +1,4 @@
-VERSION = "0.2.2"
+VERSION = "0.2.3"
 CREATOR = "@hafitzXD"
 BOT_NAME = "Deezfitz"
 DONATE = "https://paypal.me/hafitzsetya1"
