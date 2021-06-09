@@ -12,23 +12,28 @@
   "env": {
     "API_ID": {
       "description": "Get this value from https://my.telegram.org",
-      "value": ""
+      "value": "",
+      "required": true
     },
     "API_HASH": {
       "description": "Get this value from https://my.telegram.org",
-      "value": ""
+      "value": "",
+      "required": true
     },
     "BOT_TOKEN": {
       "description": "Get this value from @BotFather",
-      "value": ""
+      "value": "",
+      "required": true
     },
     "DEEZER_TOKEN": {
       "description": "Get your API token from Deezer",
-      "value": ""
+      "value": "",
+      "required": true
     },
     "OWNER_ID": {
       "description": "Owner Telegram ID",
-      "value": ""
+      "value": "",
+      "required": true
     }
   },
   "addons": [
