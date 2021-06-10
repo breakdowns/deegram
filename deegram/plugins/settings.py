@@ -32,9 +32,9 @@ async def settings(event: Union[NewMessage.Event, CallbackQuery.Event]):
 async def settings_quality(event: CallbackQuery.Event):
     q = users[event.query.user_id]["quality"]
     a = "Lossless - FLAC"
-    b = "High - MP3 320KBPS"
-    c = "Medium - MP3 256KBPS"
-    d = "Low - MP3 128KBPS"
+    b = "High - MP3 320"
+    c = "Medium - MP3 256"
+    d = "Low - MP3 128"
     s = " ✅"
 
     if q == "FLAC":
