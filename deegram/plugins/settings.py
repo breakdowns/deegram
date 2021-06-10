@@ -31,10 +31,10 @@ async def settings(event: Union[NewMessage.Event, CallbackQuery.Event]):
 @bot.on(CallbackQuery(pattern="q"))
 async def settings_quality(event: CallbackQuery.Event):
     q = users[event.query.user_id]["quality"]
-    a = "Lossless"
-    b = "High"
-    c = "Medium"
-    d = "Low"
+    a = "Lossless - FLAC"
+    b = "High - Mp3 320kbps"
+    c = "Medium - Mp3 256kbps"
+    d = "Low - Mp3 128kbps"
     s = " ✅"
 
     if q == "FLAC":
