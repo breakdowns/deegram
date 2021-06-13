@@ -2,7 +2,6 @@ VERSION = "0.2.4"
 CREATOR = "@hafitzXD"
 BOT_NAME = "Deezfitz"
 DONATE = "https://paypal.me/hafitzsetya1"
-REPO = "https://github.com/breakdowns/deegram"
 WELCOME_MSG = (
     f"🎶🎵 Welcome to {BOT_NAME} 🎵🎶\n\n"
     "Click /help for more information."
@@ -10,8 +9,7 @@ WELCOME_MSG = (
 INFO_MSG = (
     f"👤 Creator: {CREATOR}\n"
     f"ℹ Version: {VERSION}\n"
-    f"🍩 Donate: {DONATE}\n"
-    f"⚙️ Repo: {REPO}"
+    f"🍩 Donate: {DONATE}"
 )
 STATS_MSG = (
     "**Bot Uptime:** {}\n"
