@@ -6,7 +6,7 @@ COPY ./requirements.txt ./requirements.txt
 
 RUN apk update \
     && apk add --no-cache gcc g++ musl-dev libffi-dev \
-    && pip install -r requirements.txt \
+    && pip install --no-cache-dir -r requirements.txt \ 
     && apk del gcc g++ musl-dev libffi-dev
 
 COPY . .
