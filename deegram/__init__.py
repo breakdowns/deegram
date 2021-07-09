@@ -1,11 +1,9 @@
-import asyncio
 import logging
 import os
 import sys
 import time
 
 import deethon
-import uvloop
 from dotenv import load_dotenv
 from telethon import TelegramClient, functions, types
 from telethon.events import NewMessage
@@ -55,9 +53,7 @@ logger.info("Bot started")
 # Saving user preferences locally
 users = {}
 
-loop = asyncio.get_event_loop()
-#uvloop.install()
-loop.run_until_complete(
+bot.loop.run_until_complete(
     bot(functions.bots.SetBotCommandsRequest(
         commands=[
             types.BotCommand(
