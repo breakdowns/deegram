@@ -13,7 +13,7 @@ INFO_MSG = (
 )
 STATS_MSG = (
     "**Bot Uptime:** {}\n"
-    "**Total disk space:** {}\n"
+    "**Total Disk Space:** {}\n"
     "**Used:** {} "
     "**Free:** {}\n\n"
     "📊Data Usage📊\n**Upload:** {}\n"
@@ -47,5 +47,5 @@ TRACK_MSG = (
     "📅 Date: {}"
 )
 CHOOSE = "Choose:"
-SEARCH_ALBUM = "Search album 💽"
-SEARCH_TRACK = "Search track 🎧"
+SEARCH_ALBUM = "Search Album 💽"
+SEARCH_TRACK = "Search Track 🎧"
