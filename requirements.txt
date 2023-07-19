@@ -1,0 +1,8 @@
+telethon~=1.22.0
+cryptg~=0.2
+python-dotenv~=0.18.0
+aiohttp~=3.7.4
+aiodns~=3.0.0
+cchardet~=2.1.7
+deethon~=0.5.1
+psutil

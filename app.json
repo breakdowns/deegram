@@ -1,0 +1,46 @@
+{
+  "name": "Deegram",
+  "description": "A Telegram bot to download music from Deezer",
+  "logo": "https://telegra.ph/file/6507910fd06d18dfaba82.jpg",
+  "keywords": [
+    "telegram",
+    "deezer"
+  ],
+  "repository": "https://github.com/breakdowns/deegram",
+  "success_url": "https://github.com/breakdowns/deegram",
+  "website": "https://github.com/breakdowns/deegram",
+  "env": {
+    "API_ID": {
+      "description": "Get this value from https://my.telegram.org",
+      "value": "",
+      "required": true
+    },
+    "API_HASH": {
+      "description": "Get this value from https://my.telegram.org",
+      "value": "",
+      "required": true
+    },
+    "BOT_TOKEN": {
+      "description": "Get this value from @BotFather",
+      "value": "",
+      "required": true
+    },
+    "DEEZER_TOKEN": {
+      "description": "Get your API token from Deezer",
+      "value": "",
+      "required": true
+    },
+    "OWNER_ID": {
+      "description": "Owner Telegram ID",
+      "value": "",
+      "required": true
+    }
+  },
+  "addons": [
+  ],
+  "buildpacks": [{
+    "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+  }, {
+    "url": "heroku/python"
+  }]
+}
